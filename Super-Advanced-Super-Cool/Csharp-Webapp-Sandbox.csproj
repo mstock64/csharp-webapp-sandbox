@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Super_Advanced_Super_Cool</RootNamespace>
+    <RootNamespace>Super-Advanced-Super-Cool</RootNamespace>
     <UserSecretsId>b4bd6009-9bfc-4b25-8c68-18af2f1f8122</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
