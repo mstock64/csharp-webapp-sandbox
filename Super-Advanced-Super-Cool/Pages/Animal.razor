@@ -1,0 +1,55 @@
+﻿@page "/animal/{AnimalType}"
+@using Super_Advanced_Super_Cool.Services;
+<PageTitle>Cats</PageTitle>
+@inject AnimalService animalService
+<div class="card">
+    
+    <div class="card-body mx-auto d-block">
+        <img class="img-fluid rounded" src=@images[counter].url width="640" height="360" />
+    </div>
+  
+
+    <div class="card-footer btn-group mr-2" role="group">
+        <button type="button" class="btn btn-light" @onclick="@Backward">
+            Backward
+        </button>
+        <button type="button" class="btn btn-light" @onclick="@Forward">
+            Forward
+        </button>
+    </div>
+ 
+</div>
+    
+
+
+@code {
+    [Parameter]
+    public string AnimalType { get; set; }
+    public void ButtonClicked()
+    {
+        var results = animalService.GetAnimalImage(AnimalType);
+        foreach(var item in results)
+        {
+            images.Add(item);
+        }
+    }
+    public List<AnimalImage> images;
+    protected override void OnInitialized()
+    {
+        images = animalService.GetAnimalImage(AnimalType);
+
+    }
+    private int counter = 0;
+    public void Forward()
+    {
+        counter++;
+        ButtonClicked();
+    }
+    public void Backward()
+    {
+        if (counter == 0)
+            return;
+        counter--;
+    }
+    
+}

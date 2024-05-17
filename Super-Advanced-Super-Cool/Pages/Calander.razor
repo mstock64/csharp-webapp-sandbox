@@ -1,0 +1,51 @@
+﻿<h3>Calander</h3>
+<style>
+    .hoverable:hover{
+        background-color:lightgreen
+    }
+</style>
+<div class="container">
+    <div class="row row-cols-2 text-center">
+@foreach(var total in daysInMonth)
+{
+    <div class="col">
+    <div class="container">
+        <h1 >@getMonth(month)</h1>
+        <div class="border bg-light p-3">
+        <div class="row row-cols-5 text-center">
+        @for (int i = 1; i <= daysInMonth[month]; i += 1)
+        {
+
+
+
+                    <div class="col hoverable">
+                        @i
+                        </div>
+               
+            
+            
+        }
+        </div>
+        </div>
+    </div>
+    </div>
+    month++; 
+}
+</div>
+</div>
+
+@code {
+    private DateTime currentDate = DateTime.Today;
+    public int month = 0;
+    public int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    public string[] months = { "January", "February", "March", "April", "May", "June",
+                                  "July", "August", "September", "October", "November", "December" };
+    public int getMonth()
+    {
+        return currentDate.Month - 1;
+    }
+    public string getMonth(int i)
+    {
+        return months[i];
+    }
+}

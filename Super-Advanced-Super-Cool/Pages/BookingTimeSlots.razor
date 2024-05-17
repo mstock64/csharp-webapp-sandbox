@@ -1,0 +1,46 @@
+﻿<h3>BookingTimeSlots</h3>
+  <style>
+    .spacing{
+        margin-right: 3em;
+        margin-bottom: 3em;
+    }
+    .Done{
+        background-color:aquamarine;
+    }
+
+    .Cancelled {
+        background-color:crimson;
+    }
+
+    .Available {
+        background-color: #20c997;
+    }
+
+    .Booked{
+        background-color: dimgray;
+    }
+</style>
+<div class="container">
+    <div class="infinite-grid">
+        @for (int i = 0; i <  1; i++)
+        {
+            <div class="row grid-row">
+                @for (int ii = 0; ii < LiStatus.Length; ii++)
+                {
+                    <div class="col-sm-4 card spacing border bg-light">
+                        <span class="card-body" >Day: @LiDays[i] </span>
+                        <span class="card-footer @LiStatus[ii]"> Status: @LiStatus[ii] </span>
+                    </div>
+                }
+
+            </div>
+        }
+    </div>
+
+</div>
+@code {
+    public string[] LiDays = { "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday" };
+
+    public string[] LiStatus = { "Done", "Cancelled", "Available", "Booked" };
+
+}
