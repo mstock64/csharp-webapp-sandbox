@@ -5,6 +5,8 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+
+
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Super-Advanced-Super-Cool/Csharp-Webapp-Sandbox.csproj", "Super-Advanced-Super-Cool/"]
@@ -17,3 +19,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Csharp-Webapp-Sandbox.dll"]
+
+FROM mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04 as db
+ENV ACCEPT_EULA=Y
+ENV MSSQL_SA_PASSWORD=Wallybird
+ENV MSSQL_PID=developer

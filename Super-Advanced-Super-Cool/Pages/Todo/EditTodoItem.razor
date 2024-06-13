@@ -1,0 +1,43 @@
+﻿@using Super_Advanced_Super_Cool.Models;
+@using Super_Advanced_Super_Cool;
+@using Super_Advanced_Super_Cool.Repository.Contracts;
+@inject ITodoRepo _toDoRepo;
+
+<div id="editTodo1" class="bg-secondary-subtle border shadow mt-3">
+      <div class="card-body">
+        <span><label class="mb-2">Title: </label> </span> <input type="text" class="form-control mb-2" id="edit-todo-title" @bind=@Element.Title>
+        <span><label class="mb-2" >Description: </label> </span><textarea class="form-control mb-2" id="edit-todo-description" @bind=@Element.Description>@Element.Description</textarea>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-sm btn-primary me-2" id="save-todo-1" @onclick=@updateQuestion>Save</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#editTodo1" @onclick="@CloseComponentChange">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+@code {
+    [Parameter]
+    public TodoItem Element { get; set; }
+    public void updateQuestion()
+    {
+        Element.UpdatedDate = DateTime.Now;
+        _toDoRepo.Update(Element);
+        OnItemChange(Element);
+    }
+
+    [Parameter]
+    public EventCallback<TodoItem> ChangeEvent { get; set; }
+
+    [Parameter]
+    public EventCallback HideEvent { get; set; }
+    protected async Task OnItemChange(TodoItem newEle)
+    {
+        await ChangeEvent.InvokeAsync(newEle);
+    }
+     
+    protected async Task CloseComponentChange()
+    {
+        
+        await HideEvent.InvokeAsync();
+    }
+
+}

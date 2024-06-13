@@ -1,0 +1,51 @@
+﻿@using MudBlazor;
+@using Super_Advanced_Super_Cool.Services;
+@using Super_Advanced_Super_Cool.Models;
+@inject ITodoService _ItodoService;
+
+
+<MudTabs Outlined="true" Position="@Position" Rounded="true" Border="true"
+    ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
+    @foreach(var item in todoList)
+    {
+        <MudTabPanel Text=@item.Title>
+            <MudText>@item.Description</MudText>
+        </MudTabPanel>
+    }
+
+</MudTabs>
+
+
+@code {
+    public Position Position { get; set; } = Position.Left;
+    public List<TodoItem> todoList { get; set; }
+    private void OnSelectedValue(Position value)
+    {
+        switch (value)
+        {
+            case Position.Top:
+                Position = Position.Top;
+                break;
+            case Position.Start:
+                Position = Position.Start;
+                break;
+            case Position.Left:
+                Position = Position.Left;
+                break;
+            case Position.Right:
+                Position = Position.Right;
+                break;
+            case Position.End:
+                Position = Position.End;
+                break;
+            case Position.Bottom:
+                Position = Position.Bottom;
+                break;
+        }
+    }
+    protected override void OnInitialized()
+    {
+        todoList = _ItodoService.GetTodos();
+    }
+    }
+}

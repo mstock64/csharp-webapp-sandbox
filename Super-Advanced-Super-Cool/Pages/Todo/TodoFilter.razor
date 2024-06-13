@@ -1,0 +1,19 @@
+﻿@using Super_Advanced_Super_Cool.Services;
+@inject ITodoService _todoService;
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Dropdown button
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" @onclick="FilterLatest">Latest</a></li>
+        <li><a class="dropdown-item" @onclick="FilterComplete">Complete</a></li>
+        <li><a class="dropdown-item" @onclick="FilterOldest" >Oldest</a></li>
+    </ul>
+</div>
+
+@code {
+    public void FilterLatest() {}
+    public void FilterComplete() { }
+    public void FilterOldest() { }
+}

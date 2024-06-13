@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Super_Advanced_Super_Cool.Services
+namespace Super_Advanced_Super_Cool.Models
 {
     public class AnimalImage
     {

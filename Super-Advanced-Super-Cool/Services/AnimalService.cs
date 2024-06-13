@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Super_Advanced_Super_Cool.Models;
 using Newtonsoft.Json;
+using Super_Advanced_Super_Cool.Repository.Contracts;
 
 namespace Super_Advanced_Super_Cool.Services
 {
     public class AnimalService
     {
         public IAnimalClient _animalClient;
-        public AnimalService(IAnimalClient animalClient)
+        public ITodoRepo _todoRepo;
+        public AnimalService(IAnimalClient animalClient, ITodoRepo todoRepo)
         {
             _animalClient = animalClient;
+            _todoRepo = todoRepo;
         }
         public List<AnimalImage> GetAnimalImage(string animalType)
         {

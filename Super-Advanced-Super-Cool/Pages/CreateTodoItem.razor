@@ -1,0 +1,58 @@
+﻿@using Super_Advanced_Super_Cool.Services;
+@using Super_Advanced_Super_Cool.Models;
+@inject ITodoService _todoService
+<div class="card-body">
+    <label >Title</label>
+    <input class="form-control" @bind="Title"/>
+    <label> Description </label>
+    <textarea class="form-control mb-2" @bind="Description">
+    </textarea>
+    <div class="btn-group d-inline justify-content-end mt-5">
+        <button type="submit" class="btn btn-secondary" @onclick="AddNewTodoItem"> Submit </button>
+        <button type="reset" class="btn btn-primary" @onclick="ResetForm"> Restart </button>
+    </div>
+</div>
+@code {
+    public string Title { get; set; }
+    public string Description { get; set; }
+
+    [Parameter]
+    public EventCallback CloseComponent { get; set; }
+    [Parameter]
+    public EventCallback ReloadList { get; set; }
+
+    public void AddNewTodoItem()
+    {
+        if (!string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(Description))
+        {
+            _todoService.AddTodo(
+                new TodoItem()
+                    {
+                        Title = Title,
+                        Description = Description,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    }
+            );
+        }
+        CloseComponentChange();
+        ReloadListEvent();
+    }
+
+
+
+    public void ResetForm()
+    {
+        Title = string.Empty;
+        Description = string.Empty;
+    }
+    protected async Task CloseComponentChange()
+    {
+
+        await CloseComponent.InvokeAsync();
+    }
+    protected async Task ReloadListEvent()
+    {
+        await ReloadList.InvokeAsync();
+    }
+}

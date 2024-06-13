@@ -1,0 +1,33 @@
+﻿@using Super_Advanced_Super_Cool.Models
+@using Super_Advanced_Super_Cool
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">
+            <input type="checkbox" class="form-check-input me-2" id="todo1">
+            <label for="todo1" class="form-check-label">@Element.Title</label>
+        </h5>
+        <p class="card-text">@Element.Description</p>
+        <div class="d-flex justify-content-between">
+            <a @onclick=@ChangeToEdit class="btn btn-sm btn-outline-primary">Edit</a>
+          
+        </div>
+        @if (isEditing)
+        {
+            <EditTodoItem Element=@Element ChangeEvent=@changeElement HideEvent=ChangeToEdit ></EditTodoItem>
+        }
+        
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public TodoItem Element { get; set; }
+    public bool isEditing = false;
+    public void ChangeToEdit() => this.isEditing = !isEditing;
+    public void changeElement(TodoItem Ele)
+    {
+        Element = Ele;
+    }
+
+}

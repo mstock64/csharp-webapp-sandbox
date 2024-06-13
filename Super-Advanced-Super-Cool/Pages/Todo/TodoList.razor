@@ -1,0 +1,52 @@
+﻿@using Super_Advanced_Super_Cool;
+@using Super_Advanced_Super_Cool.Models;
+@using Super_Advanced_Super_Cool.Repository.Contracts;
+@inject ITodoRepo _todoRepo
+<style>
+    /* Style the list container */
+    .scrollable-list {
+        overflow-y: scroll; /* Enable vertical scrollbar */
+        max-height: 1080px; /* Set a fixed height for the list */
+        border: 1px solid #ddd; /* Optional border */
+        padding: 10px; /* Optional padding */
+    }
+
+        /* Style the list items */
+        .scrollable-list li {
+            margin-bottom: 5px; /* Add spacing between list items */
+        }
+</style>
+<ul class="scrollable-list">
+    @foreach (var item in todoItems)
+    {
+      <TodoItemElement element=@item></TodoItemElement>
+    }
+    
+</ul>
+
+<div class="btn-group d-flex justify-content-end">
+
+    
+    @if (OpenCreateSccreen)
+    {
+        <CreateTodoItem CloseComponent="CreateNew" ReloadList="Reload"></CreateTodoItem>
+    }else
+    {
+        <button @onclick="CreateNew" type="button" class="btn btn-primary">Create New Item</button>
+    }
+</div>
+
+@code {
+
+    public List<TodoItem> todoItems;
+    public bool OpenCreateSccreen = false;
+    protected override void OnInitialized()
+    {
+        Reload();
+    }
+    public void CreateNew() => OpenCreateSccreen = !OpenCreateSccreen;
+    public void Reload()
+    {
+        todoItems = _todoRepo.Get();
+    }
+}
